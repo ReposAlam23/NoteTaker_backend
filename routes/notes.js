@@ -15,7 +15,7 @@ route.post("/notes/addnotes", async(req,res)=>{
         const createNotes = await notesDB.create(req.body)
         console.log(createNotes)
 
-        res.status(200).json({
+        res.json({
             status: "notes created successfully",
             createNotes
         })
@@ -34,11 +34,30 @@ route.get("/notes", async(req,res)=>{
     try{
         const allnotes = await notesDB.find()
         console.log(allnotes)
-        res.status(200).json(allnotes)
+        res.json(allnotes)
 
     }catch(e){
         res.json({
             status: "failed",
+            message: e.message
+        })
+    }
+})
+
+//================ delete api for all notes =============
+
+route.delete("/notes/deleteAll", async(req, res)=>{
+    try{
+        const deletedData = await notesDB.deleteMany()
+        console.log(deletedData)
+        res.json({
+            status: "deleted successfully"
+        })
+
+
+    }catch(e){
+        res.json({
+            status: "deletion failed",
             message: e.message
         })
     }

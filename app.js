@@ -8,9 +8,11 @@ app.use(cors())
 
 const signRouter = require("./routes/sign")
 const notesRouter = require("./routes/notes")
+const searchedRoute = require("./routes/search")
 
 app.use("/v1", signRouter)
 app.use("/v1", notesRouter)
+app.use("/v1", searchedRoute)
 
 app.get("/v1", (req,res)=>{
     try{
