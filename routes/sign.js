@@ -78,8 +78,8 @@ route.post("/signin", async(req, res)=>{
             
             res.status(200).json({
                 status: "login success",
-                checkemail,
-                token
+                details: checkemail,
+                token: token
             })
         }    
     }catch(e){

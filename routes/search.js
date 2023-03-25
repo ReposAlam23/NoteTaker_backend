@@ -3,18 +3,10 @@ const route = express.Router()
 const notesDB = require("../model/noteSchema")
 route.use(express.json())
 
-route.get("/notes/search/:userid/:search", async(req, res)=>{
+route.get("/notes/:search", async(req, res)=>{
     try{
-        const search = `^${req.params.search}`
-        const {userid} = req.params
-
-        console.log(search, );
-        const searchedNotes = await notesDB.find({
-            userid: req.params.userid,
-            $or: [{ title: { $regex: search, $options: "i" } },] })
-            
-        console.log(searchedNotes);
-
+        let search = `^${req.params.search.slice(1)}`
+        const searchedNotes = await notesDB.find({title:{ $regex: search, $options: "i" }})
         res.json({
             status:"success",
             searchedNotes
